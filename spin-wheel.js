@@ -4,48 +4,7 @@
  * @param color [string] background color of the prize
  * @param reaction ['resting' | 'dancing' | 'laughing' | 'shocked'] Sets the reaper's animated reaction
  */
-  const prizes = [
-    {
-      text: "zero",
-      color: "hsl(197 30% 43%)",
-      reaction: "dancing"
-    },
-    { 
-      text: "one",
-      color: "hsl(173 58% 39%)",
-      reaction: "shocked"
-    },
-    { 
-      text: "two",
-      color: "hsl(43 74% 66%)",
-      reaction: "shocked" 
-    },
-    {
-      text: "three",
-      color: "hsl(27 87% 67%)",
-      reaction: "shocked"
-    },
-    {
-      text: "four",
-      color: "hsl(12 76% 61%)",
-      reaction: "dancing"
-    },
-    {
-      text: "five",
-      color: "hsl(350 60% 52%)",
-      reaction: "laughing"
-    },
-    {
-      text: "six",
-      color: "hsl(91 43% 54%)",
-      reaction: "laughing"
-    },
-    {
-      text: "seven",
-      color: "hsl(140 36% 74%)",
-      reaction: "dancing"
-    }
-  ];
+  const prizes = options;
   
   const wheel = document.querySelector(".deal-wheel");
   const spinner = wheel.querySelector(".spinner");
@@ -79,6 +38,7 @@
     // Return the total rotation needed (adding multiple spins)
     return rotationToWin + (360 * 5); // 5 full spins for effect
   };
+
 
 
 const createPrizeNodes = () => {

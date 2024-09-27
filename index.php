@@ -1,3 +1,4 @@
+<?php include 'database.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +21,10 @@
         <button class="btn-spin" >Spin the wheel</button>
        
     </div>
+    <script>
+        var options = <?= $jsonPrizes; ?>;
+        // alert(options);
+    </script>
     <script src="spin-wheel.js"></script>
 </body>
 </html>
