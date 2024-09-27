@@ -20,6 +20,7 @@
                         <table class="display table table-hover mt-3" >
                             <thead class="">
                                 <tr class="text-uppercase text-primary3 bg-white ">
+                                    <th>#</th>
                                     <th>Team</th>
                                     <th>Color</th>
                                     <th>Option</th>
@@ -28,8 +29,11 @@
                             <tbody>
                                 <?php
                                 // Loop through the prizes and generate table rows
+                                $nos = 0;
                                 foreach ($prizes as $row) {
+                                    
                                     echo '<tr  style="background-color:' . htmlspecialchars($row['color']) . ';">';
+                                        echo '<td>#' . $nos . '</td>';
                                         echo '<td>' . htmlspecialchars($row['text']) . '</td>';
                                         echo '<td>' . htmlspecialchars($row['color']) . '</td>';
                                         echo '<td>
@@ -39,6 +43,7 @@
                                                 </div>
                                             </td>';
                                     echo '</tr>';
+                                    $nos += 1;
                                 }
                                 ?>
                             </tbody>

@@ -1,4 +1,4 @@
-<?php include 'database.php'; ?>
+<?php include 'get.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,12 +48,60 @@
 	<script src="assets/js/core/popper.min.js"></script>
 	<script src="assets/js/core/bootstrap.min.js"></script>
 
+    <!-- Sweet Alert -->
+	<script src="assets/js/sweetalert/sweetalert.min.js"></script>
+
     <!-- Application JS -->
      <script>
         // Show modal for Versions
         $("#showTeams").on('click',function(){
             $('#addRowModal').modal('show');
             $('#addRowModal').find('.modal-title').text('Basketball Teams');
+        })
+
+        // This is Delete Function
+        $(".btnDelete").click(function(e){ 
+            e.preventDefault(e);
+            let id = $(this).attr('data-id');
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this data!",
+                icon: "warning",
+                buttons: [
+                    'No, cancel it!',
+                    'Yes, I am sure!'
+                ],
+                dangerMode: true,
+                }).then(function(isConfirm) {
+                if (isConfirm) {
+                    
+                    $.ajax({
+                        type: 'ajax',
+                        method: 'post',
+                        url: "delete.php?id="+id,
+                        async: false,
+                        dataType: 'text',
+                        success: function(data){
+                            
+                        },
+                        error: function(){
+                            swal('Could not edit data');
+                        }
+                    });
+            
+                    swal({
+                    title: 'Deleted Successfully!',
+                    text: '',
+                    icon: 'success'
+                    }).then(function() {
+                        //RELOAD THE PAGE TO SHOW CHANGES AFTER DELETE
+                        location.reload();
+                    });
+
+                } else {
+                    swal("Cancelled", "", "error");
+                }
+            })
         })
      </script>
     <script src="assets/js/spin-wheel.js"></script>

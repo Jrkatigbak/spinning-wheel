@@ -1,9 +1,6 @@
 <?php
 // Database connection
-$host = 'localhost';
-$dbname = 'spin-wheel';
-$user = 'root';
-$pass = '';
+include 'db.php';
 
 $jsonPrizes = '';
 try {
@@ -11,7 +8,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Query to get prizes data from a table
-    $stmt = $pdo->query("SELECT id,text,color,reaction FROM options");
+    $stmt = $pdo->query("SELECT id,text,color,reaction FROM options WHERE deleted_at = ''");
     $prizes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Convert the array to JSON
