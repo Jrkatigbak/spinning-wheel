@@ -11,7 +11,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Query to get prizes data from a table
-    $stmt = $pdo->query("SELECT text,color,reaction FROM options");
+    $stmt = $pdo->query("SELECT id,text,color,reaction FROM options");
     $prizes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Convert the array to JSON

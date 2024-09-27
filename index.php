@@ -4,9 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="reaper.css">
+    <title>Spinning Wheel</title>
+
+    <!-- Fonts and icons -->
+	<script src="assets/js/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/reaper.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -21,56 +35,27 @@
         <button class="btn-spin" >Spin the wheel</button>
        
     </div>
-    <a href="#" id="openModalButton" class="text-center options">Manage Teams</a>
-    <div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Basketball Teams</h2>
-        <table>
-            <tr>
-                <th>Team</th>
-                <th>Color <br>  (Hex Value Only)</th>
-                <th>Option</th>
-            </tr>
-            <?php
-            // Loop through the prizes and generate table rows
-            foreach ($prizes as $prize) {
-                echo '<tr  style="background-color:' . htmlspecialchars($prize['color']) . ';">';
-                    echo '<td>' . htmlspecialchars($prize['text']) . '</td>';
-                    echo '<td>' . htmlspecialchars($prize['color']) . '</td>';
-                    echo '<td>
-                          </td>';
-                echo '</tr>';
-            }
-            ?>
-            
-        </table>
-    </div>
-    </div>
+    <a href="#" id="showTeams" class="text-center options">Manage Teams</a>
+
     <script>
         var options = <?= $jsonPrizes; ?>;
 
-        // MODAL
-        var modal = document.getElementById("modal");
-        var btn = document.getElementById("openModalButton");
-        var span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function() {
-        modal.style.display = "block";
-        }
-
-        span.onclick   
-        = function() {
-        modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";   
-
-        }
-        }
+       
     </script>
-    <script src="spin-wheel.js"></script>
+    <?php include('modal/options_mngt.php'); ?>
+	<!--   Core JS Files   -->
+	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+	<script src="assets/js/core/popper.min.js"></script>
+	<script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- Application JS -->
+     <script>
+        // Show modal for Versions
+        $("#showTeams").on('click',function(){
+            $('#addRowModal').modal('show');
+            $('#addRowModal').find('.modal-title').text('Basketball Teams');
+        })
+     </script>
+    <script src="assets/js/spin-wheel.js"></script>
 </body>
 </html>
