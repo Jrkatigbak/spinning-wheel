@@ -16,9 +16,10 @@
             <?php include('reaper.html');?>
         </figure>
         <div class="ticker"></div>
-        <button class="btn-spin">Spin the wheel</button>
+        <input type="text" id="key" oninput="myFunction()" autofocus>
+        <button class="btn-spin" >Spin the wheel</button>
+       
     </div>
-
     <script src="spin-wheel.js"></script>
 </body>
 </html>

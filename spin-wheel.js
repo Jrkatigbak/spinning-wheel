@@ -6,42 +6,42 @@
  */
   const prizes = [
     {
-      text: "0",
+      text: "zero",
       color: "hsl(197 30% 43%)",
       reaction: "dancing"
     },
     { 
-      text: "1",
+      text: "one",
       color: "hsl(173 58% 39%)",
       reaction: "shocked"
     },
     { 
-      text: "2",
+      text: "two",
       color: "hsl(43 74% 66%)",
       reaction: "shocked" 
     },
     {
-      text: "3",
+      text: "three",
       color: "hsl(27 87% 67%)",
       reaction: "shocked"
     },
     {
-      text: "4",
+      text: "four",
       color: "hsl(12 76% 61%)",
       reaction: "dancing"
     },
     {
-      text: "5",
+      text: "five",
       color: "hsl(350 60% 52%)",
       reaction: "laughing"
     },
     {
-      text: "6",
+      text: "six",
       color: "hsl(91 43% 54%)",
       reaction: "laughing"
     },
     {
-      text: "7",
+      text: "seven",
       color: "hsl(140 36% 74%)",
       reaction: "dancing"
     }
@@ -53,6 +53,12 @@
   const ticker = wheel.querySelector(".ticker");
   const reaper = wheel.querySelector(".grim-reaper");
   const prizeSlice = 360 / prizes.length;
+  let predictedIndex_set_by_user = '';
+  function myFunction() {
+    predictedIndex_set_by_user = document.getElementById("key").value;
+  }
+ 
+
   const prizeOffset = Math.floor(180 / prizes.length);
   const spinClass = "is-spinning";
   const selectedClass = "selected";
@@ -74,20 +80,36 @@
     return rotationToWin + (360 * 5); // 5 full spins for effect
   };
 
-  // Rotation, Text and Color
-  const createPrizeNodes = () => {
-    prizes.forEach(({ text, color, reaction }, i) => {
+
+const createPrizeNodes = () => {
+    prizes.forEach((prize, i) => {
+      const { text, color, reaction } = prize; // Destructure prize properties
       const rotation = ((prizeSlice * i) * -1) - prizeOffset;
-      
-      spinner.insertAdjacentHTML(
-        "beforeend",
-        `<li class="prize" data-reaction=${reaction} style="--rotate: ${rotation}deg">
-          <span class="text">${text}</span>
-        </li>`
-      );
+  
+      // Create the prize node
+      const prizeNode = document.createElement('li');
+      prizeNode.classList.add('prize');
+      prizeNode.setAttribute('data-reaction', reaction);
+      prizeNode.style.setProperty('--rotate', `${rotation}deg`);
+  
+      // Add the prize text
+      const prizeText = document.createElement('span');
+      prizeText.classList.add('text');
+      prizeText.textContent = text;
+  
+      // Append the text to the prize node
+      prizeNode.appendChild(prizeText);
+  
+      // Add the click event listener to the prize node
+      prizeNode.addEventListener('click', () => {
+        alert(`Position of "${text}": ${i}`); // Alert the position of the clicked prize
+      });
+  
+      // Append the prize node to the spinner
+      spinner.appendChild(prizeNode);
     });
   };
-  
+
   // Color Gradient
   const createConicGradient = () => {
     spinner.setAttribute(
@@ -137,12 +159,6 @@
     tickerAnim = requestAnimationFrame(runTickerAnimation);
   };
   
-//   const selectPrize = () => {
-//     const selected = Math.floor(rotation / prizeSlice);
-//     prizeNodes[selected].classList.add(selectedClass);
-//     reaper.dataset.reaction = prizeNodes[selected].dataset.reaction;
-//   };
-
 const selectPrize = () => {
     const selected = Math.floor(rotation / prizeSlice) % prizes.length;
     prizeNodes[selected].classList.add(selectedClass);
@@ -157,9 +173,8 @@ const selectPrize = () => {
     trigger.disabled = true;
   
     // Change this index to the desired winner (e.g., 2 for "Ginebra San Miguel")
-    const predictedIndex = 0; // Adjust this for your desired outcome
+    const predictedIndex = predictedIndex_set_by_user; // Adjust this for your desired outcome
     const predictedRotation = predictWinner(predictedIndex);
-    
     // Apply the calculated rotation
     rotation = predictedRotation;
   
@@ -181,6 +196,9 @@ const selectPrize = () => {
     selectPrize(); // This will now accurately select the prize based on rotation
     wheel.classList.remove(spinClass);
     spinner.style.setProperty("--rotate", rotation);
+
+    document.getElementById("key").value = '';
+    document.getElementById("key").focus();
   });
   
   setupWheel();
