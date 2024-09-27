@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reaper.css">
 </head>
 
 <body>
@@ -12,8 +13,7 @@
     <div class="deal-wheel">
         <ul class="spinner"></ul>
         <figure class="cap">
-            <!-- Grim reaper SVG import -->
-            <!-- [[[https://codepen.io/hexagoncircle/pen/vYxKLOa]]] -->
+            <?php include('reaper.html');?>
         </figure>
         <div class="ticker"></div>
         <button class="btn-spin">Spin the wheel</button>
